@@ -29,7 +29,7 @@
 //   8     // Do the actual multiplication
 //   9     cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
 //   10 }
-#if 0
+
 template <typename T>
 void cublas_gemm(
   cublasHandle_t &handle,
@@ -42,7 +42,8 @@ void cublas_gemm(
   T* C, int ldc) {
       throw Rcpp::exception("default gemm method called in error");
 }
-#endif
+
+#if 0
 template <>
 void cublas_gemm<float>(
   cublasHandle_t &handle,
@@ -71,6 +72,7 @@ void cublas_gemm<double>(
   double* C, int ldc) {
       cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, &alpha, A, lda, B, ldb, &beta, C, ldc);
 }
+#endif
 
 template <typename T>
 void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
