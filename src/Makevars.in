@@ -1,0 +1,39 @@
+CXX_STD = CXX14
+CPP_STD = -std=c++14
+
+PKG_CPPFLAGS = @GPURCUBLAS_CPPFLAGS@
+PKG_CXXFLAGS = @GPURCUBLAS_CXXFLAGS@
+
+PKG_LIBS = @GPURCUBLAS_LIBS@
+R_LIBS = @R_LIBS@
+
+cpp_sources = $(wildcard *.cpp)
+cpp_sharedlibs = $(patsubst %.cpp, %.o, $(cpp_sources))
+
+
+OBJECTS = $(cpp_sharedlibs)
+
+R_INC = -I/../inst/include @R_INCL@ @RCPP_INCL@ @THRUST_INCL@ @GPURCUDA_INCL@ @CU_INCL@
+CXX_ARGS = @R_CPIC@
+
+CU_ARGS = -Xcompiler -fPIC -Xcudafe --diag_suppress=code_is_unreachable
+CU_INCL = -I../inst/include @R_INCL@ @RCPP_INCL@ @THRUST_INCL@ @GPURCUDA_INCL@
+
+CU_ARCH = -gencode arch=compute_70,code=sm_70
+CU_ARCH+= -gencode arch=compute_75,code=sm_75
+CU_ARCH+= -gencode arch=compute_80,code=sm_80
+
+CXX=@CXX@
+NVCC=@NVCC@
+
+all: gpuRcublas.so
+
+gpuRcublas.so: $(OBJECTS)
+
+%.o: %.cpp $(cpp_sources)
+		$(NVCC) $(CU_ARCH) $(CPP_STD) -DGPU -x cu -c $(CU_ARGS) $(CU_INCL) $< -o $@
+
+clean:
+	@rm -rf *.o *.so *.dll
+
+
