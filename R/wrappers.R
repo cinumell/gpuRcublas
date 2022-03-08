@@ -1,7 +1,6 @@
-
 #' @importFrom gpuRcuda cudaMatrix
 cublas_gemm <- function(A, B){
-  
+# getSlot(A)
   type = "double"
   cat('type A:', type, "\n")
   cat('type B:', type, "\n")
@@ -15,7 +14,7 @@ cublas_gemm <- function(A, B){
   
   print('output initialized')
 
-  cublasGemm(A@address,B@address,C@address,"double",8L)
+  cpp_cublasGemm(A@address,B@address,C@address,"double",8L)
     
   print('multiplication done after the call')
 
@@ -35,5 +34,6 @@ cublas_gemm <- function(A, B){
 # )
   
   return(C)
+  
 }
 
