@@ -1,7 +1,7 @@
-#' @importFrom gpuRcuda cudaMatrix
 #' @useDynLib gpuRcublas
 #' @importFrom Rcpp evalCpp
 #' @import methods
+#' @importFrom gpuRcuda cudaMatrix
 cublas_gemm <- function(A, B){
 # getSlot(A)
   type = "double"

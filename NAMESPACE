@@ -3,4 +3,6 @@
 exportMethods("%*%")
 import(methods)
 importClassesFrom(gpuRcuda,cudaMatrix)
+importFrom(Rcpp,evalCpp)
 importFrom(gpuRcuda,cudaMatrix)
+useDynLib(gpuRcublas)
