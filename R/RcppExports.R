@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 cublasGemm <- function(A, B, C, type, type_flag) {
-    invisible(.Call(`_gpuRcublas_cublasGemm`, A, B, C, type, type_flag))
+    invisible(.Call('_gpuRcublas_cublasGemm', PACKAGE = 'gpuRcublas', A, B, C, type, type_flag))
 }
 

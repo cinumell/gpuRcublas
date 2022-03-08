@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // cublasGemm
 void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type, const int type_flag);
 RcppExport SEXP _gpuRcublas_cublasGemm(SEXP ASEXP, SEXP BSEXP, SEXP CSEXP, SEXP typeSEXP, SEXP type_flagSEXP) {
