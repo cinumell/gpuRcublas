@@ -14,7 +14,7 @@ cublas_gemm <- function(A, B){
   
   print('output initialized')
 
-  cpp_cublasGemm(A@address,B@address,C@address,"double",8L)
+  cublasGemm(A@address,B@address,C@address,"double",8L)
     
   print('multiplication done after the call')
 
