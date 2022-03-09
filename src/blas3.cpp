@@ -44,7 +44,7 @@ void cublas_gemm(
 }
 
 template <>
-void cublas_gemm(
+void cublas_gemm<float>(
   cublasHandle_t &handle,
   cublasOperation_t transA, cublasOperation_t transB,
   int m, int n, int k,
@@ -60,7 +60,7 @@ void cublas_gemm(
 }
 
 template <>
-void cublas_gemm(
+void cublas_gemm<double>(
   cublasHandle_t &handle,
   cublasOperation_t transA, cublasOperation_t transB,
   int m, int n, int k,
