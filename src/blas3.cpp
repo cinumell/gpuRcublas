@@ -102,7 +102,7 @@ void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
   std::cout << "about to call templated cublas" << std::endl;
   
   // cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
-  cublas_gemm(handle, 
+  cublas_gemm<T>(handle, 
        CUBLAS_OP_N,
        CUBLAS_OP_N,
        m,
