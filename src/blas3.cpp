@@ -102,7 +102,7 @@ void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
   std::cout << "about to call templated cublas" << std::endl;
   
   // cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
-  cublas_gemm<T>(handle, 
+  cublas_gemm(handle, 
        CUBLAS_OP_N,
        CUBLAS_OP_N,
        m,
@@ -116,7 +116,7 @@ void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
        beta,
        thrust::raw_pointer_cast(pC->getPtr()->data()), 
        ldc);
-  
+
   return;
 }
 
