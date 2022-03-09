@@ -30,6 +30,7 @@
 //   9     cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
 //   10 }
 
+#if 0
 template <typename T>
 void cublas_gemm(
   cublasHandle_t &handle,
@@ -71,6 +72,7 @@ void cublas_gemm<double>(
   double* C, int ldc) {
       cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, &alpha, A, lda, B, ldb, &beta, C, ldc);
 }
+#endif
 
 template <typename T>
 void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
@@ -102,6 +104,21 @@ void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
   std::cout << "about to call templated cublas" << std::endl;
   
   // cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
+  cublasDgemm(handle, 
+       CUBLAS_OP_N,
+       CUBLAS_OP_N,
+       m,
+       n,
+       k,
+       alpha,
+       thrust::raw_pointer_cast(pA->getPtr()->data()), 
+       lda,
+       thrust::raw_pointer_cast(pB->getPtr()->data()), 
+       ldb,
+       beta,
+       thrust::raw_pointer_cast(pC->getPtr()->data()), 
+       ldc);
+#if 0
   cublas_gemm(handle, 
        CUBLAS_OP_N,
        CUBLAS_OP_N,
@@ -116,7 +133,7 @@ void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
        beta,
        thrust::raw_pointer_cast(pC->getPtr()->data()), 
        ldc);
-
+#endif
   return;
 }
 
