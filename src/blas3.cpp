@@ -43,9 +43,8 @@ void cublas_gemm(
       throw Rcpp::exception("default gemm method called in error");
 }
 
-#if 0
 template <>
-void cublas_gemm<float>(
+void cublas_gemm(
   cublasHandle_t &handle,
   cublasOperation_t transA, cublasOperation_t transB,
   int m, int n, int k,
@@ -61,7 +60,7 @@ void cublas_gemm<float>(
 }
 
 template <>
-void cublas_gemm<double>(
+void cublas_gemm(
   cublasHandle_t &handle,
   cublasOperation_t transA, cublasOperation_t transB,
   int m, int n, int k,
@@ -72,7 +71,6 @@ void cublas_gemm<double>(
   double* C, int ldc) {
       cublasDgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, &alpha, A, lda, B, ldb, &beta, C, ldc);
 }
-#endif
 
 template <typename T>
 void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
@@ -104,7 +102,7 @@ void cublasGemm(SEXP A, SEXP B, SEXP C, std::string type){
   std::cout << "about to call templated cublas" << std::endl;
   
   // cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
-  cublas_gemm<T>(handle, 
+  cublas_gemm(handle, 
        CUBLAS_OP_N,
        CUBLAS_OP_N,
        m,
