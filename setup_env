@@ -1,0 +1,2 @@
+module load r/4.1.0-BLAS cuda/11.2.0
+export CUDA_HOME="/data/sse/scientific-software/cinumell/rmagma_test/cuda-lib/cuda/11.2.0/"
