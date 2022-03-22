@@ -150,7 +150,7 @@ void cusolverGesvd(SEXP A, SEXP S, SEXP U, SEXP VT, std::string type){
 
     CUSOLVER_CHECK(cusolverDnDestroy(cusolverH));
 
-    CUDA_CHECK(cudaDeviceReset());
+//  CUDA_CHECK(cudaDeviceReset());
     
     return;
 }
