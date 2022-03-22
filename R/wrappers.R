@@ -64,7 +64,8 @@ cusolver_gesvd <- function(A){
     
   print('gesvd done after the call')
   
-  return(VT)
+  ret_vals <- list("d" = S, "u" = U, "vt" = VT)
+  return(ret_vals)
 }
 
 
