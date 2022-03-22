@@ -86,8 +86,9 @@ void cusolver_gesvd<double>(
 
     /* query working space of SVD */
     CUSOLVER_CHECK(cusolverDnDgesvd_bufferSize(cusolverH, m, n, lwork));
+    std::cout << "allocating the lwork based on the buffer size" << *lwork << std::endl;
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&work), sizeof(double) * (*lwork)));
-    
+    td::cout << "invoking the cusolverDnDgesvd API" << std::endl;
     CUSOLVER_CHECK(cusolverDnDgesvd(cusolverH, jobu, jobvt, m, n, A, lda, S, U,
                                     lda, // ldu
                                     VT,
