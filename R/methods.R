@@ -19,3 +19,20 @@ setMethod("%*%", signature(x="cudaMatrix", y = "cudaMatrix"),
           },
           valueClass = "cudaMatrix"
 )
+
+
+#' @title cuSOLVER svd of a gpuRcudaMatrix
+#' @description return the singular value decomposition of a gpuRcudaMatrix
+#' @param x A gpuRcudaMatrix object
+#' @docType methods
+#' @rdname grapes-times-grapes-methods
+#' @author Chaitanya Inumella.
+#' @importClassesFrom gpuRcuda cudaMatrix
+#' @export
+setMethod('svd', signature(x="gpuRcudaMatrix"),
+           function(x) 
+           {
+                return(cusolver_gesvd(x))
+           },
+           valueClass = "cudaMatrix"                  
+)

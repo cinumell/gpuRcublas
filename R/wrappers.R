@@ -38,5 +38,33 @@ cublas_gemm <- function(A, B){
   
   return(C)
   
+
 }
+
+cusolver_gesvd <- function(A){
+  type = "double"
+  cat('type A:', type, "\n")
+  M=nrow(A)
+  N=ncol(A)
+  L=M
+
+  cat("sizeof(L) = (", L, ")\n")
+  
+  U  <- matrix(0,nrow=1,ncol=L*M);  # m-by-m unitary matrix, left singular vectors
+  S  <- matrix(0,nrow=1,ncol=N);    # numerical singular value 
+  VT <- matrix(0,nrow=1,ncol=L*N)   # n-by-n unitary matrix, right singular vectors 
+
+  U  <- cudaMatrix(U, nrow = 1, ncol = L*M, type = type)
+  S  <- cudaMatrix(S, nrow = 1, ncol = N, type = type)
+  VT <- cudaMatrix(VT, nrow = 1, ncol = L*N, type = type)
+  
+  print('output initialized')
+
+  cusolverGesvd(A@address,S@address,U@address,VT@address,"double",8L)
+    
+  print('gesvd done after the call')
+  
+  return(VT)
+}
+
 
