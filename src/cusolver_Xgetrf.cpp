@@ -145,7 +145,7 @@ void cusolverGesvd(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type){
                                         thrust::raw_pointer_cast(pB->getPtr()->data()), ldb, d_info));
     } else {
         CUSOLVER_CHECK(cusolverDnXgetrs(cusolverH, params, CUBLAS_OP_N, m, 1, /* nrhs */
-                                        traits<data_type>::cuda_data_type, hrust::raw_pointer_cast(pLU->getPtr()->data()).data(, lda, 
+                                        traits<data_type>::cuda_data_type, thrust::raw_pointer_cast(pLU->getPtr()->data()), lda, 
                                         nullptr, traits<data_type>::cuda_data_type, 
                                         d_B, ldb, d_info));
     }
@@ -184,4 +184,3 @@ cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type, cons
         throw Rcpp::exception("unknown type detected for gpuRcublas object!");
   }
 }
-
