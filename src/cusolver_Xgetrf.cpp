@@ -61,7 +61,7 @@ template <typename T>
 void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type){
 
     Rcpp::XPtr<device_matrix<T> > pA(A);
-    Rcpp::XPtr<device_matrix<T> > pS(S);
+    Rcpp::XPtr<device_matrix<T> > pB(B);
     Rcpp::XPtr<device_matrix<T> > pLU(LU);
     Rcpp::XPtr<device_matrix<int64_t> > pIV(PIV);
     Rcpp::XPtr<device_matrix<T> > pX(X);
@@ -147,7 +147,7 @@ void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type)
         CUSOLVER_CHECK(cusolverDnXgetrs(cusolverH, params, CUBLAS_OP_N, m, 1, /* nrhs */
                                         traits<data_type>::cuda_data_type, thrust::raw_pointer_cast(pLU->getPtr()->data()), lda, 
                                         nullptr, traits<data_type>::cuda_data_type, 
-                                        d_B, ldb, d_info));
+                                        thrust::raw_pointer_cast(pB->getPtr()->data()), ldb, d_info));
     }
 
     CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pX->getPtr()->data()), thrust::raw_pointer_cast(pB->getPtr()->data()), 
