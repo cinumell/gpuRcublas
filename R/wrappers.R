@@ -82,9 +82,9 @@ cusolver_Xgetrf <- function(A, B){
   LU  <- matrix(0,nrow=L,ncol=M); 
   PIV <- matrix(0,nrow=M,ncol=1);
 
-  X  <- cudaMatrix(U, type = type)
-  LU  <- cudaMatrix(S, type = type)
-  PIV <- cudaMatrix(VT,type = integer)
+  X  <- cudaMatrix(X, type = type)
+  LU  <- cudaMatrix(LU, type = type)
+  PIV <- cudaMatrix(PIV,type = integer)
   
   print('output initialized')
 

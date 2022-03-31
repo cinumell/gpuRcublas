@@ -25,7 +25,7 @@ setMethod("%*%", signature(x="cudaMatrix", y = "cudaMatrix"),
 #' @description return the singular value decomposition of a gpuRcudaMatrix
 #' @param x A gpuRcudaMatrix object
 #' @docType methods
-#' @rdname grapes-times-grapes-methods
+#' @rdname cusolver-methods
 #' @author Chaitanya Inumella.
 #' @importClassesFrom gpuRcuda cudaMatrix
 #' @export
@@ -38,23 +38,20 @@ setMethod('svd', signature(x="gpuRcudaMatrix"),
 )
 
 
-#' @title cuSOLVER svd of a gpuRcudaMatrix
-#' @description return the LU decomposition of the gpuRcudaMatrices
+#' @title cuSOLVER getrf of a gpuRcudaMatrices
+#' @description return the LU factorization of the gpuRcudaMatrices
 #' @param x A gpuRcudaMatrix object
 #' @param y A gpuRcudaMatrix object
 #' @docType methods
-#' @rdname grapes-times-grapes-methods
+#' @rdname cusolver-methods
 #' @author Chaitanya Inumella.
 #' @importClassesFrom gpuRcuda cudaMatrix
+#' @aliases lud,cudaMatrix
 #' @export
-setMethod('getrf', signature(x="gpuRcudaMatrix",y="gpuRcudaMatrix"),
-           function(x,y) 
-           {
+setMethod('lud', signature(x="gpuRcudaMatrix", y="gpuRcudaMatrix"),
+          function(x,y)
+          {
                 return(cusolver_Xgetrf(x,y))
-           },
-           valueClass = "cudaMatrix"                  
+          },
+          valueClass = "cudaMatrix"
 )
-
-
-
-

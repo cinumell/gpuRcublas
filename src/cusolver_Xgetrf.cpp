@@ -57,6 +57,54 @@
 #include <gpuRcuda/device_matrix.hpp>
 #include "cusolver_utils.h"
 
+
+template <typename T>
+void cusolver_Xgetrf(
+    cusolverDnHandle_t cusolverH,
+    cusolverDnParams_t params,
+    int64_t m,
+    int64_t n,
+    cudaDataType dataTypeA,
+    T *A,
+    int64_t lda,
+    int64_t *ipiv,
+    cudaDataType computeType,
+    T *d_work,
+    size_t *d_lwork,
+    T *h_work,
+    size_t *h_lwork,
+    int *d_info, const int pivot_on ) {
+      throw Rcpp::exception("default getrf method called in error");
+}
+
+template <>
+void cusolver_Xgetrf<double>(
+    cusolverDnHandle_t cusolverH,
+    cusolverDnParams_t params,
+    int64_t m,
+    int64_t n,
+    cudaDataType dataTypeA,
+    double *A,
+    int64_t lda,
+    int64_t *ipiv,
+    cudaDataType computeType,
+    double *d_work,
+    size_t *d_lwork,
+    double *h_work,
+    size_t *h_lwork,
+    int *d_info, const int pivot_on ) {
+
+    if (pivot_on) {
+        CUSOLVER_CHECK(cusolverDnXgetrf(cusolverH, params, m, n, dataTypeA, (void *)A, lda, ipiv, 
+                                        computeType, (void *)d_work, *d_lwork, (void *)h_work, *h_lwork, d_info));
+    } else {
+        CUSOLVER_CHECK(cusolverDnXgetrf(cusolverH, params, m, n, dataTypeA, (void *)A, lda, nullptr, 
+                                        computeType,(void *)d_work, *d_lwork, (void *)h_work, *h_lwork, d_info));
+    }
+    return;
+}
+
+
 template <typename T>
 void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type){
 
@@ -118,15 +166,9 @@ void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type)
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_info), sizeof(int)));
 
     /* step 3: LU factorization */
-    if (pivot_on) {
-        CUSOLVER_CHECK(cusolverDnXgetrf(cusolverH, params, m, m, traits<data_type>::cuda_data_type,
-                                        thrust::raw_pointer_cast(pA->getPtr()->data()), lda, thrust::raw_pointer_cast(pIV->getPtr()->data()), 
-                                        traits<data_type>::cuda_data_type, d_work, d_lwork, h_work, h_lwork, d_info));
-    } else {
-        CUSOLVER_CHECK(cusolverDnXgetrf(cusolverH, params, m, m, traits<data_type>::cuda_data_type,
-                                        thrust::raw_pointer_cast(pA->getPtr()->data()), lda, nullptr, traits<data_type>::cuda_data_type,
-                                        d_work, d_lwork, h_work, h_lwork, d_info));
-    }
+    cusolver_Xgetrf(cusolverH, params, m, m, traits<data_type>::cuda_data_type,thrust::raw_pointer_cast(pA->getPtr()->data()), lda, 
+                     thrust::raw_pointer_cast(pIV->getPtr()->data()), traits<data_type>::cuda_data_type,
+                     (double *)d_work, &d_lwork, (double *)h_work, &h_lwork, d_info, pivot_on);
 
     CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pLU->getPtr()->data()), thrust::raw_pointer_cast(pA->getPtr()->data()), 
                                 sizeof(data_type) * lda * m, cudaMemcpyDeviceToDevice, stream));
