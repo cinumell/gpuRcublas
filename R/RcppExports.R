@@ -5,6 +5,10 @@ cublasGemm <- function(A, B, C, type, type_flag) {
     invisible(.Call('_gpuRcublas_cublasGemm', PACKAGE = 'gpuRcublas', A, B, C, type, type_flag))
 }
 
+cusolverXgetrf <- function(A, B, PIV, LU, X, type, type_flag) {
+    invisible(.Call('_gpuRcublas_cusolverXgetrf', PACKAGE = 'gpuRcublas', A, B, PIV, LU, X, type, type_flag))
+}
+
 cusolverGesvd <- function(A, S, U, VT, type, type_flag) {
     invisible(.Call('_gpuRcublas_cusolverGesvd', PACKAGE = 'gpuRcublas', A, S, U, VT, type, type_flag))
 }

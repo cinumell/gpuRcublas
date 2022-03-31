@@ -24,6 +24,22 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// cusolverXgetrf
+void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type, const int type_flag);
+RcppExport SEXP _gpuRcublas_cusolverXgetrf(SEXP ASEXP, SEXP BSEXP, SEXP PIVSEXP, SEXP LUSEXP, SEXP XSEXP, SEXP typeSEXP, SEXP type_flagSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type A(ASEXP);
+    Rcpp::traits::input_parameter< SEXP >::type B(BSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type PIV(PIVSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type LU(LUSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type X(XSEXP);
+    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< const int >::type type_flag(type_flagSEXP);
+    cusolverXgetrf(A, B, PIV, LU, X, type, type_flag);
+    return R_NilValue;
+END_RCPP
+}
 // cusolverGesvd
 void cusolverGesvd(SEXP A, SEXP S, SEXP U, SEXP VT, std::string type, const int type_flag);
 RcppExport SEXP _gpuRcublas_cusolverGesvd(SEXP ASEXP, SEXP SSEXP, SEXP USEXP, SEXP VTSEXP, SEXP typeSEXP, SEXP type_flagSEXP) {
@@ -42,6 +58,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_gpuRcublas_cublasGemm", (DL_FUNC) &_gpuRcublas_cublasGemm, 5},
+    {"_gpuRcublas_cusolverXgetrf", (DL_FUNC) &_gpuRcublas_cusolverXgetrf, 7},
     {"_gpuRcublas_cusolverGesvd", (DL_FUNC) &_gpuRcublas_cusolverGesvd, 6},
     {NULL, NULL, 0}
 };
