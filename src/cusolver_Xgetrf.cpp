@@ -58,7 +58,7 @@
 #include "cusolver_utils.h"
 
 template <typename T>
-void cusolverGesvd(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type){
+void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type){
 
     Rcpp::XPtr<device_matrix<T> > pA(A);
     Rcpp::XPtr<device_matrix<T> > pS(S);
