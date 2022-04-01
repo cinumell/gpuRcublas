@@ -2,8 +2,8 @@ Package: gpuRcublas
 Type: Package
 Title: cublas functions for R
 Version: 1.0.0
-Date: 2018-01-05
-Author: Charles Determan Jr.
+Date: 2022-01-05
+Author: Charles Determan Jr. and Chaitanya Inumella
 Maintainer: Charles Determan Jr. <cdetermanjr@gmail.com>
 Description: The package extends the gpuRcuda package to allow users
   to leverage cublas functions for GPU computing on NVIDIA devices.

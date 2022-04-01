@@ -69,30 +69,37 @@ cusolver_gesvd <- function(A){
 }
 
 
-cusolver_Xgetrf <- function(A, B){
+cusolver_xgetrf <- function(A,PIV_FLAG = 1){
   type = "double"
   cat('type A:', type, "\n")
   M=nrow(A)
   N=ncol(A)
-  L=M
 
-  cat("sizeof(L) = (", L, ")\n")
+  cat("sizeof(A) = (", M, ")\n")
   
-  X   <- matrix(0,nrow=M,ncol=1);  
-  LU  <- matrix(0,nrow=L,ncol=M); 
-  PIV <- matrix(0,nrow=M,ncol=1);
+  LU  <- matrix(0,nrow=M,ncol=N); 
+  PIV <- matrix(0L,nrow=M,ncol=1);
 
-  X  <- cudaMatrix(X, type = type)
   LU  <- cudaMatrix(LU, type = type)
-  PIV <- cudaMatrix(PIV,type = integer)
+  print('LU initialized')
+  PIV <- cudaMatrix(PIV,type = "integer")
+  print('PIV initialized')
   
   print('output initialized')
 
-  cusolverXgetrf(A@address,B@address,PIV@address,LU@address,X@address,"double",8L)
+  cusolverXgetrf(A@address,PIV@address,LU@address,PIV_FLAG,"double",8L)
     
   print('getrf done after the call')
+
+  L = matrix(LU[],nrow=M,ncol=N)
+  U = L
+  U[lower.tri(L,0)] <- 0
+  L[t(lower.tri(L,1))] <- 0
+  diag(L) <- 1
+
+  det = prod(diag(U))
   
-  ret_vals <- list("PIV" = PIV, "LU" = LU, "X" = X)
+  ret_vals <- list("PIV" = PIV, "LU" = LU, "L" = L, "U" = U, "det" = det)
   return(ret_vals)
 }
 

@@ -1,15 +1,15 @@
 #' @import methods
 
 #' @title cuBLAS Matrix Multiplication
-#' @description Multiply two gpuRcude objects, if they are conformable.
-#' @param x A gpuRcuda object
-#' @param y A gpuRcuda object
+#' @description Multiply two gpuRcuda objects, if they are conformable.
+#' @param x a gpuRcuda object
+#' @param y a gpuRcuda object
 #' @docType methods
 #' @rdname grapes-times-grapes-methods
 #' @author Charles Determan Jr.
 #' @importClassesFrom gpuRcuda cudaMatrix
 #' @export
-setMethod("%*%", signature(x="cudaMatrix", y = "cudaMatrix"),
+setMethod("%*%", signature(x="cudaMatrix", y= "cudaMatrix"),
           function(x,y)
           {
             if( dim(x)[2] != dim(y)[1]){
@@ -23,14 +23,17 @@ setMethod("%*%", signature(x="cudaMatrix", y = "cudaMatrix"),
 
 #' @title cuSOLVER svd of a gpuRcudaMatrix
 #' @description return the singular value decomposition of a gpuRcudaMatrix
-#' @param x A gpuRcudaMatrix object
+#' @param x a gpuRcudaMatrix object
 #' @docType methods
 #' @rdname cusolver-methods
 #' @author Chaitanya Inumella.
 #' @importClassesFrom gpuRcuda cudaMatrix
 #' @export
-setMethod('svd', signature(x="gpuRcudaMatrix"),
-           function(x) 
+setGeneric("gpusvd", function(x, ...){
+               standardGeneric("gpusvd")
+})
+setMethod('gpusvd', signature(x="gpuRcudaMatrix"),
+           function(x,...) 
            {
                 return(cusolver_gesvd(x))
            },
@@ -38,20 +41,23 @@ setMethod('svd', signature(x="gpuRcudaMatrix"),
 )
 
 
-#' @title cuSOLVER getrf of a gpuRcudaMatrices
-#' @description return the LU factorization of the gpuRcudaMatrices
-#' @param x A gpuRcudaMatrix object
-#' @param y A gpuRcudaMatrix object
+#' @title cuSOLVER LU of a gpuRcudaMatrix
+#' @description return the LU decomposition of a gpuRcudaMatrix
+#' @param x a gpuRcudaMatrix object
 #' @docType methods
 #' @rdname cusolver-methods
 #' @author Chaitanya Inumella.
 #' @importClassesFrom gpuRcuda cudaMatrix
-#' @aliases lud,cudaMatrix
 #' @export
-setMethod('lud', signature(x="gpuRcudaMatrix", y="gpuRcudaMatrix"),
-          function(x,y)
-          {
-                return(cusolver_Xgetrf(x,y))
-          },
-          valueClass = "cudaMatrix"
+setGeneric("gpulu", function(x, PIV_FLAG=1, ...){
+               standardGeneric("gpulu")
+})
+setMethod("gpulu", signature(x="gpuRcudaMatrix"),
+           function(x, PIV_FLAG=1, ...) 
+           {
+                return(cusolver_xgetrf(x))
+           },
+           valueClass = "cudaMatrix"                  
 )
+
+

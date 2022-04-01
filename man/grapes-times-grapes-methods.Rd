@@ -3,25 +3,18 @@
 \docType{methods}
 \name{\%*\%,cudaMatrix,cudaMatrix-method}
 \alias{\%*\%,cudaMatrix,cudaMatrix-method}
-\alias{svd,gpuRcudaMatrix-method}
 \title{cuBLAS Matrix Multiplication}
 \usage{
 \S4method{\%*\%}{cudaMatrix,cudaMatrix}(x, y)
-
-\S4method{svd}{gpuRcudaMatrix}(x)
 }
 \arguments{
-\item{x}{A gpuRcudaMatrix object}
+\item{x}{a gpuRcuda object}
 
-\item{y}{A gpuRcuda object}
+\item{y}{a gpuRcuda object}
 }
 \description{
-Multiply two gpuRcude objects, if they are conformable.
-
-return the singular value decomposition of a gpuRcudaMatrix
+Multiply two gpuRcuda objects, if they are conformable.
 }
 \author{
 Charles Determan Jr.
-
-Chaitanya Inumella.
 }

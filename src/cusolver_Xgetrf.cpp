@@ -106,14 +106,12 @@ void cusolver_Xgetrf<double>(
 
 
 template <typename T>
-void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type){
+void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 
     Rcpp::XPtr<device_matrix<T> > pA(A);
-    Rcpp::XPtr<device_matrix<T> > pB(B);
     Rcpp::XPtr<device_matrix<T> > pLU(LU);
     Rcpp::XPtr<device_matrix<int64_t> > pIV(PIV);
-    Rcpp::XPtr<device_matrix<T> > pX(X);
-    
+    int pivot_on = Rcpp::as<int >(PIV_FLAG); 
     cusolverDnHandle_t cusolverH = NULL;
     cudaStream_t stream = NULL;
 
@@ -121,7 +119,6 @@ void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type)
 
     const int64_t m = pA->nrow();
     const int64_t lda = m;
-    const int64_t ldb = m;
     
     int info = 0;
     int *d_info = nullptr;     /* error info */
@@ -131,7 +128,6 @@ void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type)
     size_t h_lwork = 0;     /* size of workspace */
     void *h_work = nullptr; /* host workspace for getrf */
 
-    const int pivot_on = 1;
     const int algo = 0;
 
     if (pivot_on) {
@@ -176,28 +172,10 @@ void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type)
 
     CUDA_CHECK(cudaStreamSynchronize(stream));
 
-    std::printf("after Xgetrf: info = %d\n", info);
-    std::printf("L and U = (matlab base-1)\n");
-    std::printf("=====\n");
-
-    if (pivot_on) {
-        CUSOLVER_CHECK(cusolverDnXgetrs(cusolverH, params, CUBLAS_OP_N, m, 1, /* nrhs */
-                                        traits<data_type>::cuda_data_type, thrust::raw_pointer_cast(pA->getPtr()->data()), lda, 
-                                        thrust::raw_pointer_cast(pIV->getPtr()->data()), traits<data_type>::cuda_data_type, 
-                                        thrust::raw_pointer_cast(pB->getPtr()->data()), ldb, d_info));
-    } else {
-        CUSOLVER_CHECK(cusolverDnXgetrs(cusolverH, params, CUBLAS_OP_N, m, 1, /* nrhs */
-                                        traits<data_type>::cuda_data_type, thrust::raw_pointer_cast(pLU->getPtr()->data()), lda, 
-                                        nullptr, traits<data_type>::cuda_data_type, 
-                                        thrust::raw_pointer_cast(pB->getPtr()->data()), ldb, d_info));
+    if (info !=0) {
+        std::printf("after Xgetrf: info = %d\n", info);
+        std::printf("=====\n");
     }
-
-    CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pX->getPtr()->data()), thrust::raw_pointer_cast(pB->getPtr()->data()), 
-                sizeof(data_type) * m, cudaMemcpyDeviceToDevice, stream));
-    CUDA_CHECK(cudaStreamSynchronize(stream));
-
-    std::printf("X = (matlab base-1)\n");
-    std::printf("=====\n");
 
     /* free resources */
     CUDA_CHECK(cudaFree(d_info));
@@ -210,17 +188,16 @@ void cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type)
     CUDA_CHECK(cudaStreamDestroy(stream));
 
     return;
-    
 }
 
 // [[Rcpp::export]]
 void
-cusolverXgetrf(SEXP A, SEXP B, SEXP PIV, SEXP LU, SEXP X, std::string type, const int type_flag)
+cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type, const int type_flag)
 {
   std::cout << "entered c++" << std::endl;
   switch(type_flag){
     case 8:
-        cusolverXgetrf<double>(A, B, PIV, LU, X, type);
+        cusolverXgetrf<double>(A, PIV, LU, PIV_FLAG, type);
         return;
     default:
         throw Rcpp::exception("unknown type detected for gpuRcublas object!");
