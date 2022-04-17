@@ -1,0 +1,62 @@
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-PCIE-40GB
+  - context device index: 1
+    - NVIDIA A100-PCIE-40GB
+  - context device index: 2
+    - NVIDIA A100-PCIE-40GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 2
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 7.523673 7.561522 7.829237 7.580018 7.600772 20.63825   100
+[1] 4
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 6.855703 6.885718 7.330316 6.916484 6.979758 33.37292   100
+[1] 8
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 6.840554 6.868808 6.992459 6.887253 6.907773 9.337681   100
+[1] 16
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 7.539973 7.571008 7.852021 7.633987 7.742107 14.36171   100
+[1] 32
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 7.554423 7.585417 7.734806 7.619547 7.664217 10.09846   100
+[1] 64
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 7.554533 7.578663 7.714056 7.593068 7.615753 11.01392   100
+[1] 128
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 6.879563 6.940553 9.435263 7.075348 7.409223 220.3102   100
+[1] 256
+Unit: milliseconds
+              expr      min       lq    mean   median       uq      max neval
+ gpuR <- gA %*% gB 7.755863 7.794352 7.97486 7.825183 7.987407 10.37255   100
+[1] 512
+Unit: milliseconds
+              expr      min       lq     mean   median      uq      max neval
+ gpuR <- gA %*% gB 15.52692 15.62088 16.02295 15.67091 16.5471 18.24507   100
+[1] 1024
+Unit: milliseconds
+              expr      min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 39.15858 39.83949 42.83423 40.37466 41.68876 242.3085   100
+[1] 2048
+Unit: milliseconds
+              expr    min       lq     mean   median       uq      max neval
+ gpuR <- gA %*% gB 261.37 264.1618 275.0355 265.2701 266.3693 510.3301   100

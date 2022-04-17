@@ -1,0 +1,68 @@
+Loading required package: usethis
+
+Attaching package: ‘testthat’
+
+The following object is masked from ‘package:devtools’:
+
+    test_file
+
+ℹ Updating gpuRcublas documentation
+ℹ Loading gpuRcublas
+Writing NAMESPACE
+Writing NAMESPACE
+[1] 2
+Unit: microseconds
+             expr    min     lq     mean  median     uq     max neval
+ gpu <- gA %*% gB 430.22 434.95 495.7695 440.904 443.94 968.849    10
+[1] 4
+Unit: microseconds
+             expr    min      lq     mean   median     uq     max neval
+ gpu <- gA %*% gB 424.96 434.019 495.4355 436.8195 463.92 871.099    10
+[1] 8
+Unit: microseconds
+             expr   min      lq     mean   median      uq     max neval
+ gpu <- gA %*% gB 421.9 424.559 485.5715 433.8345 438.829 852.899    10
+[1] 16
+Unit: microseconds
+             expr    min      lq     mean  median      uq     max neval
+ gpu <- gA %*% gB 423.23 432.479 479.0055 435.885 437.829 847.409    10
+[1] 32
+Unit: microseconds
+             expr    min      lq     mean   median     uq     max neval
+ gpu <- gA %*% gB 425.01 426.549 488.9905 434.1845 436.47 837.249    10
+[1] 64
+Unit: microseconds
+             expr    min      lq     mean  median     uq     max neval
+ gpu <- gA %*% gB 428.52 430.719 491.2885 444.909 461.96 832.999    10
+[1] 128
+Unit: microseconds
+             expr     min      lq     mean  median      uq     max neval
+ gpu <- gA %*% gB 447.219 453.649 516.2015 458.195 494.239 881.459    10
+[1] 256
+Unit: microseconds
+             expr    min     lq     mean  median      uq     max neval
+ gpu <- gA %*% gB 521.12 608.26 671.0893 621.159 762.819 933.999    10
+[1] 512
+Unit: milliseconds
+             expr      min       lq     mean   median       uq      max neval
+ gpu <- gA %*% gB 1.162308 1.167299 1.374349 1.483049 1.509808 1.573678    10
+[1] 1024
+Unit: milliseconds
+             expr      min       lq     mean   median       uq      max neval
+ gpu <- gA %*% gB 2.584368 2.703727 17.02602 3.224951 5.928684 136.2397    10
+[1] 2048
+Unit: milliseconds
+             expr      min       lq     mean   median       uq     max neval
+ gpu <- gA %*% gB 8.708311 8.964641 15.11228 10.78525 11.25448 60.4152    10
+[1] 4096
+Unit: milliseconds
+             expr      min       lq     mean   median       uq      max neval
+ gpu <- gA %*% gB 26.45972 27.41105 38.41117 28.68875 29.64928 79.31786    10
+[1] 8192
+Unit: milliseconds
+             expr      min       lq     mean   median       uq      max neval
+ gpu <- gA %*% gB 98.10195 104.7919 106.5044 105.9392 108.7307 112.6823    10
+[1] 16384
+Unit: milliseconds
+             expr      min       lq     mean   median       uq      max neval
+ gpu <- gA %*% gB 620.3362 747.2527 740.1782 754.0048 756.2632 762.5388    10

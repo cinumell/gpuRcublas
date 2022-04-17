@@ -14,7 +14,7 @@ S <- matrix(c(3,0,0,1/3), nrow=2)
 A <- U %*% S %*% VT
 
 cpu_SVD <- La.svd(A)
-gpu_SVD <- svd(cudaMatrix(A,type="double"))
+gpu_SVD <- gpusvd(cudaMatrix(A,type="double"))
 
 ORDER <- 2^10
 
@@ -27,7 +27,7 @@ cat("type of gpuA:", type, "\n")
 cat("dimensions of gpuA:", M, N, "\n")
 
 cpu_SVD <- La.svd(A)
-gpu_SVD <- svd(gpuA)
+gpu_SVD <- gpusvd(gpuA)
 
 cat("type of gpu_SVD$d:", typeof(gpu_SVD$d), "\n")
 

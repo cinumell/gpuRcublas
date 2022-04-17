@@ -1,0 +1,116 @@
+Loading required package: usethis
+
+Attaching package: ‘testthat’
+
+The following object is masked from ‘package:devtools’:
+
+    test_file
+
+ℹ Updating gpuRcublas documentation
+ℹ Loading gpuRcublas
+Writing NAMESPACE
+Writing NAMESPACE
+[1] 2
+Unit: microseconds
+                         expr      min       lq       mean   median       uq
+             cpu <- La.svd(A)   14.327   16.686   29.33441   21.867   40.687
+ gpu <- gpusvd(cudaMatrix(A)) 2746.229 2783.423 2875.24690 2797.358 2817.387
+      max neval
+   61.756   100
+ 9464.802   100
+[1] 4
+Unit: microseconds
+                         expr      min       lq       mean   median       uq
+             cpu <- La.svd(A)   17.774   25.273   37.62549   46.387   48.060
+ gpu <- gpusvd(cudaMatrix(A)) 2873.107 2903.899 2942.81980 2922.113 2938.629
+      max neval
+   77.506   100
+ 3720.634   100
+[1] 8
+Unit: microseconds
+                         expr      min        lq       mean    median       uq
+             cpu <- La.svd(A)   34.425   38.3425   54.10179   56.5565   66.595
+ gpu <- gpusvd(cudaMatrix(A)) 3089.241 3110.3100 3158.74585 3126.6410 3152.525
+      max neval
+   93.456   100
+ 3950.976   100
+[1] 16
+Unit: microseconds
+                         expr      min       lq      mean    median       uq
+             cpu <- La.svd(A)   82.374   88.205  103.5386  107.8825  116.874
+ gpu <- gpusvd(cudaMatrix(A)) 3407.989 3573.378 3601.6771 3588.1960 3606.785
+      max neval
+  149.790   100
+ 4372.056   100
+[1] 32
+Unit: microseconds
+                         expr      min        lq      mean   median        uq
+             cpu <- La.svd(A)  224.541  239.0475  256.3143  252.759  272.7915
+ gpu <- gpusvd(cudaMatrix(A)) 4363.079 4385.5915 4438.7956 4411.885 4454.5055
+      max neval
+  310.362   100
+ 5224.274   100
+[1] 64
+Unit: microseconds
+                         expr      min       lq      mean   median        uq
+             cpu <- La.svd(A)  731.862  769.027  775.7906  773.971  777.6025
+ gpu <- gpusvd(cudaMatrix(A)) 7443.143 7488.618 7555.9743 7533.416 7590.6735
+      max neval
+  987.662   100
+ 8091.888   100
+[1] 128
+Unit: milliseconds
+                         expr       min        lq      mean    median        uq
+             cpu <- La.svd(A)  2.748563  2.777277  2.867061  2.803024  2.839688
+ gpu <- gpusvd(cudaMatrix(A)) 15.222375 15.390926 15.624277 15.711441 15.789123
+       max neval
+  4.935501   100
+ 16.229613   100
+[1] 256
+Unit: milliseconds
+                         expr      min       lq     mean   median       uq
+             cpu <- La.svd(A) 13.86779 14.00740 14.20495 14.06033 14.16104
+ gpu <- gpusvd(cudaMatrix(A)) 37.33362 37.55738 37.83074 37.81164 37.97464
+      max neval
+ 16.22221   100
+ 40.18318   100
+[1] 512
+Unit: milliseconds
+                         expr       min        lq      mean    median       uq
+             cpu <- La.svd(A)  91.92132  94.28471  95.71669  95.48601  96.0202
+ gpu <- gpusvd(cudaMatrix(A)) 110.53177 110.71725 112.24014 110.85213 111.5830
+      max neval
+ 147.4177   100
+ 161.3141   100
+[1] 1024
+Unit: milliseconds
+                         expr      min       lq     mean   median       uq
+             cpu <- La.svd(A) 531.3167 535.9425 541.7351 538.1993 540.5621
+ gpu <- gpusvd(cudaMatrix(A)) 375.5390 376.4310 380.5808 377.6786 379.0614
+      max neval
+ 589.3884   100
+ 428.8577   100
+[1] 2048
+Unit: seconds
+                         expr      min       lq     mean   median       uq
+             cpu <- La.svd(A) 3.698331 3.793496 3.961987 3.935026 4.092208
+ gpu <- gpusvd(cudaMatrix(A)) 1.459455 1.461553 1.483094 1.476072 1.483561
+      max neval
+ 4.471915    10
+ 1.534524    10
+[1] 4096
+Unit: seconds
+                         expr       min       lq      mean    median        uq
+             cpu <- La.svd(A) 33.849775 33.97906 34.405795 34.173472 34.580897
+ gpu <- gpusvd(cudaMatrix(A))  6.127346  6.13287  6.148704  6.140414  6.148311
+       max neval
+ 35.575727    10
+  6.193794    10
+[1] 8192
+Unit: seconds
+                         expr       min        lq      mean   median        uq
+             cpu <- La.svd(A) 355.17180 360.45626 363.47003 361.6297 362.85130
+ gpu <- gpusvd(cudaMatrix(A))  34.89882  35.11136  35.13624  35.1584  35.19153
+       max neval
+ 377.53509    10
+  35.21827    10

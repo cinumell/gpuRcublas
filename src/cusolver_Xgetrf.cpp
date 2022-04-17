@@ -119,7 +119,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 
     const int64_t m = pA->nrow();
     const int64_t lda = m;
-    
+
     int info = 0;
     int *d_info = nullptr;     /* error info */
 
@@ -130,11 +130,11 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 
     const int algo = 0;
 
-    if (pivot_on) {
-        std::printf("pivot is on : compute P*A = L*U \n");
-    } else {
-        std::printf("pivot is off: compute A = L*U (not numerically stable)\n");
-    }
+//  if (pivot_on) {
+//      std::printf("pivot is on : compute P*A = L*U \n");
+//  } else {
+//      std::printf("pivot is off: compute A = L*U (not numerically stable)\n");
+//  }
 
     /* step 1: create cusolver handle, bind a stream */
     CUSOLVER_CHECK(cusolverDnCreate(&cusolverH));
@@ -146,10 +146,10 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
     cusolverDnParams_t params;
     CUSOLVER_CHECK(cusolverDnCreateParams(&params));
     if (algo == 0) {
-        std::printf("Using New Algo\n");
+//      std::printf("Using New Algo\n");
         CUSOLVER_CHECK(cusolverDnSetAdvOptions(params, CUSOLVERDN_GETRF, CUSOLVER_ALG_0));
     } else {
-        std::printf("Using Legacy Algo\n");
+//      std::printf("Using Legacy Algo\n");
         CUSOLVER_CHECK(cusolverDnSetAdvOptions(params, CUSOLVERDN_GETRF, CUSOLVER_ALG_1));
     }
     
@@ -162,6 +162,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_info), sizeof(int)));
 
     /* step 3: LU factorization */
+    // XXX pivoting is broken
     cusolver_Xgetrf(cusolverH, params, m, m, traits<data_type>::cuda_data_type,thrust::raw_pointer_cast(pA->getPtr()->data()), lda, 
                      thrust::raw_pointer_cast(pIV->getPtr()->data()), traits<data_type>::cuda_data_type,
                      (double *)d_work, &d_lwork, (double *)h_work, &h_lwork, d_info, pivot_on);
@@ -194,7 +195,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 void
 cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type, const int type_flag)
 {
-  std::cout << "entered c++" << std::endl;
+//std::cout << "entered c++" << std::endl;
   switch(type_flag){
     case 8:
         cusolverXgetrf<double>(A, PIV, LU, PIV_FLAG, type);

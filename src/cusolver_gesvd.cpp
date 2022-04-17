@@ -86,9 +86,9 @@ void cusolver_gesvd<double>(
 
     /* query working space of SVD */
     CUSOLVER_CHECK(cusolverDnDgesvd_bufferSize(cusolverH, m, n, lwork));
-    std::cout << "allocating the lwork based on the buffer size " << *lwork << std::endl;
+//  std::cout << "allocating the lwork based on the buffer size " << *lwork << std::endl;
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&work), sizeof(double) * (*lwork)));
-    std::cout << "invoking the cusolverDnDgesvd API" << std::endl;
+//  std::cout << "invoking the cusolverDnDgesvd API" << std::endl;
     CUSOLVER_CHECK(cusolverDnDgesvd(cusolverH, jobu, jobvt, m, n, A, lda, S, U,
                                     lda, // ldu
                                     VT,
@@ -122,16 +122,16 @@ void cusolverGesvd(SEXP A, SEXP S, SEXP U, SEXP VT, std::string type){
     T* d_work = nullptr;
     T* d_rwork = nullptr;
 
-    std::printf("A = (matlab base-1)\n");
+//  std::printf("A = (matlab base-1)\n");
     //print_matrix(m, n, A.data(), lda);
-    std::printf("=====\n");
+//  std::printf("=====\n");
     
 
     /* compute SVD */
     signed char jobu = 'A';  // all m columns of U
     signed char jobvt = 'A'; // all n columns of VT
   
-    std::cout << "about to call templated cusolver" << std::endl;
+//  std::cout << "about to call templated cusolver" << std::endl;
     
     // cublasSgemm(handle, CUBLAS_OPI_N, CUBLAS_OP_N, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
     cusolver_gesvd(cusolverH, 
@@ -157,7 +157,7 @@ void cusolverGesvd(SEXP A, SEXP S, SEXP U, SEXP VT, std::string type){
 void 
 cusolverGesvd(SEXP A, SEXP S, SEXP U, SEXP VT, std::string type, const int type_flag)
 {
-  std::cout << "entered c++" << std::endl;
+//std::cout << "entered c++" << std::endl;
   switch(type_flag){
     case 8:
         cusolverGesvd<double>(A, S, U, VT, type);

@@ -1,0 +1,344 @@
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 2
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 19.41605 19.60172 20.16695 19.65481 20.38228 31.64638   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 4
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 19.83732 19.98088 20.86038 20.14577 21.10534 31.83557   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 8
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 20.54611 20.75379 21.28678 20.82842 21.04076 32.56348   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 16
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 21.68451 21.89401 22.49575 22.00864 22.43444 33.97999   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 32
+Unit: milliseconds
+            expr      min       lq     mean  median       uq      max neval
+ gpuR <- svd(gA) 24.69446 24.91502 25.66312 25.0439 26.09513 36.61007   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 64
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 30.69881 30.91898 31.45743 30.98368 31.12262 42.44224   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 128
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 46.35627 46.68406 47.38876 46.99986 47.69949 58.14746   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 256
+Unit: milliseconds
+            expr      min      lq     mean   median     uq      max neval
+ gpuR <- svd(gA) 90.86765 91.4201 92.35225 91.72466 92.899 108.6576   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 512
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 251.5369 252.3825 254.2925 253.3453 254.9602 272.3553   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 1024
+Unit: milliseconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 852.3219 859.6177 862.6818 863.0889 865.9027 877.3744   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 2048
+Unit: seconds
+            expr      min       lq     mean   median      uq      max neval
+ gpuR <- svd(gA) 5.683052 5.690717 5.694238 5.693637 5.69807 5.707533   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 4096
+Unit: seconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 33.09275 33.10702 33.12253 33.12028 33.13974 33.16902   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+[1] 8192
+Unit: seconds
+            expr      min       lq     mean   median       uq      max neval
+ gpuR <- svd(gA) 179.2358 179.2653 179.3319 179.2966 179.3954 179.4781   100
+Number of platforms: 1
+- platform: NVIDIA Corporation: OpenCL 3.0 CUDA 11.6.99
+  - context device index: 0
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 1
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 2
+    - NVIDIA A100-SXM4-80GB
+  - context device index: 3
+    - NVIDIA A100-SXM4-80GB
+checked all devices
+completed initialization
+gpuR 2.0.3
+
+Attaching package: ‘gpuR’
+
+The following objects are masked from ‘package:base’:
+
+    colnames, pmax, pmin, svd
+
+ViennaCL: FATAL ERROR: Kernel start failed for 'house_update_A_left'.
+ViennaCL: Smaller work sizes could not solve the problem. 
+Error in cpp_gpuMatrix_svd(x@address, D@address, U@address, V@address,  : 
+  ViennaCL: FATAL ERROR: CL_INVALID_KERNEL_ARGS 
+ The supplied kernel arguments do not fit the kernel parameter list. If you have written your own OpenCL kernel, please check that the correct kernel arguments are set in the appropriate order.
+If you think that this is a bug in ViennaCL, please report it at viennacl-support@lists.sourceforge.net and supply at least the following information:
+ * Operating System
+ * Which OpenCL implementation (AMD, NVIDIA, etc.)
+ * ViennaCL version
+Many thanks in advance!
+Calls: mygemm -> svd -> svd.gpuMatrix -> cpp_gpuMatrix_svd
+Execution halted
