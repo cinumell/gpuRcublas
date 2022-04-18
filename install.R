@@ -3,7 +3,7 @@
 
 mypath=file.path(getwd(), "lib")
 #ENV BACKEND=CUDA
-library('devtools')
+dir.create(mypath, showWarnings = FALSE)
 withr::with_libpaths(new=mypath,devtools::install_github('cinumell/thrust'))
 withr::with_libpaths(new=mypath,devtools::install_github('RcppCore/Rcpp'))
 withr::with_libpaths(new=mypath,devtools::install_github('cinumell/gpuRcuda'))
