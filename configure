@@ -2817,12 +2817,11 @@ if test x"${RSCRIPT}" == x"yes" ; then
     rcpp_incl=`${R_HOME}/bin/Rscript -e 'Rcpp:::CxxFlags()'`
 		thrust_incl=`${R_HOME}/bin/Rscript -e 'cat(paste("-I", system.file("include", package = "thrust"), sep = ""))'`
 		gpurcuda_incl=`${R_HOME}/bin/Rscript -e 'cat(paste("-I", system.file("include", package = "gpuRcuda"), sep = ""))'`
-		RCPP_INCL="$rcpp_incl"
+        RCPP_INCL="$rcpp_incl"
 
         GPURCUDA_INCL="$gpurcuda_incl"
 
     THRUST_INCL="$thrust_incl"
-
 else
     echo "
   Your installation does not appear to have Rscript installed.
