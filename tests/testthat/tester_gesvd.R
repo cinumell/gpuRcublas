@@ -3,7 +3,8 @@
 
 library('devtools')
 library('testthat')
-.libPaths( c(.libPaths(), "/data/sse/scientific-software/cinumell/rmagma_test/gpuRcublas/lib") )
+mypath=file.path(getwd(),"/lib")
+.libPaths( c(.libPaths(), mypath) )
 library('gpuRcuda')
 library('gpuRcublas')
 

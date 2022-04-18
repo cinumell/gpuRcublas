@@ -1,8 +1,8 @@
 #!/usr/bin/env R
 # 4.1
-
+mypath=file.path(getwd(),"/lib")
 library('devtools')
-.libPaths( c(.libPaths(), "/data/sse/scientific-software/cinumell/rmagma_test/gpuRcublas/lib") )
+.libPaths( c(.libPaths(), mypath) )
 library('gpuRcuda')
 library('gpuRcublas')
 

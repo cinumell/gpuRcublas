@@ -2,12 +2,8 @@
 # 4.1
 library('devtools')
 library('testthat')
-.libPaths( 
-  c(
-    .libPaths(), 
-    "/data/sse/scientific-software/cinumell/rmagma_test/gpuRcublas_new_benchmark/lib"
-  ) 
-)
+mypath=file.path(getwd(),"/lib")
+.libPaths( c(.libPaths(), mypath) )
 library('gpuRcuda')
 library('gpuRcublas')
 library('microbenchmark')
