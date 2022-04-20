@@ -58,12 +58,23 @@
 #include <gpuRcuda/host_matrix.hpp>
 #include "cusolver_utils.h"
 
-void print_pivoting_seq(int *Ipiv, int m) {
+#if 0
+void print_LU_matrix(const int64_t &m, const int64_t &n, double *A, const int64_t &lda) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            std::printf("%0.2f ", A[j * lda + i]);
+        }
+        std::printf("\n");
+    }
+}
+
+void print_pivoting_seq(int *Ipiv, int &m) {
     for (int j = 0; j < m; j++) {
         std::printf("Ipiv(%d) = %lu\n", j + 1, Ipiv[j]);
     }
     return;
 }
+#endif
 
 template <typename T>
 void cusolver_Xgetrf(
@@ -126,6 +137,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 
     const int64_t m = pA->nrow();
     const int64_t lda = m;
+    const int64_t n = pA->ncol();
 
     int info = 0;
     int *d_info = nullptr;     /* error info */
@@ -137,6 +149,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
     size_t d_lIpiv= 0;      /* size of workspace */
     int64_t *d_Ipiv = nullptr; /* pivoting sequence */
     const int algo = 0;
+    //std::vector<data_type> LU_mat(lda*m,0);
 
 //  if (pivot_on) {
 //      std::printf("pivot is on : compute P*A = L*U \n");
@@ -175,15 +188,21 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
     cusolver_Xgetrf(cusolverH, params, m, m, traits<data_type>::cuda_data_type,thrust::raw_pointer_cast(pA->getPtr()->data()), lda, 
                      d_Ipiv, traits<data_type>::cuda_data_type,
                      (double *)d_work, &d_lwork, (double *)h_work, &h_lwork, d_info, pivot_on);
-
+    
     CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pLU->getPtr()->data()), thrust::raw_pointer_cast(pA->getPtr()->data()), 
                                 sizeof(data_type) * lda * m, cudaMemcpyDeviceToDevice, stream));
     CUDA_CHECK(cudaMemcpyAsync(&info, d_info, sizeof(int), cudaMemcpyDeviceToHost, stream));
     CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pIV->getPtr()->data()), reinterpret_cast<int *>(d_Ipiv), 
                                 sizeof(int) * d_lIpiv, cudaMemcpyDeviceToHost, stream));
+#if 0
+    CUDA_CHECK(cudaMemcpyAsync(LU_mat.data(), reinterpret_cast<data_type *>(thrust::raw_pointer_cast(pA->getPtr()->data())),
+                                sizeof(data_type) * lda * m, cudaMemcpyDeviceToHost, stream));
+#endif
     CUDA_CHECK(cudaStreamSynchronize(stream));
-
+#if 0
     print_pivoting_seq(thrust::raw_pointer_cast(pIV->getPtr()->data()), d_lIpiv);
+    print_LU_matrix(m,n,LU_mat.data(), lda);    
+#endif
 
     if (info !=0) {
         std::printf("after Xgetrf: info = %d\n", info);
