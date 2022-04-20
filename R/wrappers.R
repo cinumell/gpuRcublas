@@ -77,12 +77,12 @@ cusolver_xgetrf <- function(A,PIV_FLAG = 1){
 # cat("sizeof(A) = (", M, ")\n")
   
   LU  <- matrix(0,nrow=M,ncol=N); 
-  PIV <- matrix(0,nrow=1,ncol=M);
+  PIV <- matrix(as.integer(0),nrow=1,ncol=M);
 
+  PIV <- nvMatrix(PIV, type = "integer");
+# print('PIV initialized')
   LU  <- cudaMatrix(LU, type = type)
 # print('LU initialized')
-  PIV <- cudaMatrix(PIV,type = "integer")
-# print('PIV initialized')
   
 # print('output initialized')
 

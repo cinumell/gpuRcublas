@@ -55,8 +55,15 @@
 #include <cusolverDn.h>
 
 #include <gpuRcuda/device_matrix.hpp>
+#include <gpuRcuda/host_matrix.hpp>
 #include "cusolver_utils.h"
 
+void print_pivoting_seq(int *Ipiv, int m) {
+    for (int j = 0; j < m; j++) {
+        std::printf("Ipiv(%d) = %lu\n", j + 1, Ipiv[j]);
+    }
+    return;
+}
 
 template <typename T>
 void cusolver_Xgetrf(
@@ -110,7 +117,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 
     Rcpp::XPtr<device_matrix<T> > pA(A);
     Rcpp::XPtr<device_matrix<T> > pLU(LU);
-    Rcpp::XPtr<device_matrix<int64_t> > pIV(PIV);
+    Rcpp::XPtr<host_matrix<int>   > pIV(PIV);
     int pivot_on = Rcpp::as<int >(PIV_FLAG); 
     cusolverDnHandle_t cusolverH = NULL;
     cudaStream_t stream = NULL;
@@ -127,7 +134,8 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
     void *d_work = nullptr; /* device workspace for getrf */
     size_t h_lwork = 0;     /* size of workspace */
     void *h_work = nullptr; /* host workspace for getrf */
-
+    size_t d_lIpiv= 0;      /* size of workspace */
+    int64_t *d_Ipiv = nullptr; /* pivoting sequence */
     const int algo = 0;
 
 //  if (pivot_on) {
@@ -152,26 +160,30 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 //      std::printf("Using Legacy Algo\n");
         CUSOLVER_CHECK(cusolverDnSetAdvOptions(params, CUSOLVERDN_GETRF, CUSOLVER_ALG_1));
     }
-    
     /* step 2: query working space of getrf */
+    d_lIpiv=pIV->ncol();
+    std::printf("pivot sequence length is %lu\n", d_lIpiv);
     CUSOLVER_CHECK(
         cusolverDnXgetrf_bufferSize(cusolverH, params, m, m, traits<data_type>::cuda_data_type, thrust::raw_pointer_cast(pA->getPtr()->data()),
                                     lda, traits<data_type>::cuda_data_type, &d_lwork, &h_lwork));
 
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_work), sizeof(data_type) * d_lwork));
     CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_info), sizeof(int)));
-
+    CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_Ipiv), sizeof(int64_t) * d_lIpiv));
     /* step 3: LU factorization */
     // XXX pivoting is broken
     cusolver_Xgetrf(cusolverH, params, m, m, traits<data_type>::cuda_data_type,thrust::raw_pointer_cast(pA->getPtr()->data()), lda, 
-                     thrust::raw_pointer_cast(pIV->getPtr()->data()), traits<data_type>::cuda_data_type,
+                     d_Ipiv, traits<data_type>::cuda_data_type,
                      (double *)d_work, &d_lwork, (double *)h_work, &h_lwork, d_info, pivot_on);
 
     CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pLU->getPtr()->data()), thrust::raw_pointer_cast(pA->getPtr()->data()), 
                                 sizeof(data_type) * lda * m, cudaMemcpyDeviceToDevice, stream));
     CUDA_CHECK(cudaMemcpyAsync(&info, d_info, sizeof(int), cudaMemcpyDeviceToHost, stream));
-
+    CUDA_CHECK(cudaMemcpyAsync(thrust::raw_pointer_cast(pIV->getPtr()->data()), reinterpret_cast<int *>(d_Ipiv), 
+                                sizeof(int) * d_lIpiv, cudaMemcpyDeviceToHost, stream));
     CUDA_CHECK(cudaStreamSynchronize(stream));
+
+    print_pivoting_seq(thrust::raw_pointer_cast(pIV->getPtr()->data()), d_lIpiv);
 
     if (info !=0) {
         std::printf("after Xgetrf: info = %d\n", info);
@@ -181,6 +193,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
     /* free resources */
     CUDA_CHECK(cudaFree(d_info));
     CUDA_CHECK(cudaFree(d_work));
+    CUDA_CHECK(cudaFree(d_Ipiv));
 
     CUSOLVER_CHECK(cusolverDnDestroyParams(params));
 
@@ -195,7 +208,7 @@ void cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type){
 void
 cusolverXgetrf(SEXP A, SEXP PIV, SEXP LU, SEXP PIV_FLAG, std::string type, const int type_flag)
 {
-//std::cout << "entered c++" << std::endl;
+  //std::cout << "entered c++" << std::endl;
   switch(type_flag){
     case 8:
         cusolverXgetrf<double>(A, PIV, LU, PIV_FLAG, type);
