@@ -17,3 +17,5 @@ The sytem/docker should have the modules loaded with the libraries:
 
 Installation:
 Run the install script file --> Rscript install.R
+
+The project was accepted under Birds of Feathers and presented at PEARC'22 in Boston. The presentation report can be found [here](https://github.com/cinumell/gpuRcublas/blob/main/BoF.pdf).
